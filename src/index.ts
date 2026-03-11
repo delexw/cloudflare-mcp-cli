@@ -51,6 +51,41 @@ config
     console.log('Token removed from OS keychain.')
   })
 
+config
+  .command('verify-token')
+  .description('Check which token sources are configured and verify the active token')
+  .action(async () => {
+    const flagToken = program.opts().token
+    const envToken = process.env.CLOUDFLARE_API_TOKEN
+    const keychainToken = getToken()
+
+    console.log('Token sources:')
+    console.log(`  --token flag:          ${flagToken ? 'set' : 'not set'}`)
+    console.log(`  CLOUDFLARE_API_TOKEN:  ${envToken ? 'set' : 'not set'}`)
+    console.log(`  OS keychain:           ${keychainToken ? 'set' : 'not set'}`)
+
+    const token = flagToken || envToken || keychainToken
+    if (!token) {
+      console.error(
+        '\nNo token found. Use --token, set CLOUDFLARE_API_TOKEN, or run: cloudflare-mcp config set-token <token>',
+      )
+      process.exit(1)
+    }
+
+    const source = flagToken ? '--token flag' : envToken ? 'CLOUDFLARE_API_TOKEN' : 'OS keychain'
+    console.log(`\nActive token source: ${source}`)
+
+    try {
+      const { client, transport } = createClient(token)
+      await client.connect(transport)
+      await client.close()
+      console.log('Verification: token is valid (connected to Cloudflare MCP)')
+    } catch (err) {
+      console.error('Verification: failed to connect —', err instanceof Error ? err.message : err)
+      process.exit(1)
+    }
+  })
+
 program
   .command('search')
   .description('Search the Cloudflare OpenAPI spec')
