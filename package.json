@@ -1,6 +1,6 @@
 {
   "name": "cloudflare-mcp-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI wrapper for the Cloudflare MCP server",
   "type": "module",
   "main": "dist/index.js",
