@@ -1,5 +1,11 @@
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, resolve } from 'node:path'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const pkg = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), 'utf-8'))
 
 const MCP_URL = 'https://mcp.cloudflare.com/mcp'
 
@@ -16,8 +22,8 @@ export function createClient(apiToken: string): { client: Client; transport: Str
   )
 
   const client = new Client({
-    name: 'cloudflare-mcp-cli',
-    version: '1.0.0',
+    name: pkg.name,
+    version: pkg.version,
   })
 
   return { client, transport }
