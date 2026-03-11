@@ -2,14 +2,17 @@
   "plugins": ["typescript", "import", "oxc"],
   "rules": {
     "typescript/no-explicit-any": "error",
-    "typescript/no-restricted-types": ["error", {
-      "types": {
-        "unknown": {
-          "message": "Use a specific type instead of 'unknown'.",
-          "suggest": ["string", "number", "Record<string, string>"]
+    "typescript/no-restricted-types": [
+      "error",
+      {
+        "types": {
+          "unknown": {
+            "message": "Use a specific type instead of 'unknown'.",
+            "suggest": ["string", "number", "Record<string, string>"]
+          }
         }
       }
-    }],
+    ],
     "typescript/no-require-imports": "error",
     "import/no-dynamic-require": "error"
   }

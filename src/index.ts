@@ -16,22 +16,23 @@ program
   .name(pkg.name)
   .description(pkg.description)
   .version(pkg.version)
-  .option('-t, --token <token>', 'Cloudflare API token (overrides stored token and CLOUDFLARE_API_TOKEN)')
+  .option(
+    '-t, --token <token>',
+    'Cloudflare API token (overrides stored token and CLOUDFLARE_API_TOKEN)',
+  )
 
 function resolveToken(opts: { token?: string }): string {
   const token = opts.token || process.env.CLOUDFLARE_API_TOKEN || getToken()
   if (!token) {
     console.error(
-      'Error: API token required. Use --token, set CLOUDFLARE_API_TOKEN, or run: cloudflare-mcp config set-token <token>'
+      'Error: API token required. Use --token, set CLOUDFLARE_API_TOKEN, or run: cloudflare-mcp config set-token <token>',
     )
     process.exit(1)
   }
   return token
 }
 
-const config = program
-  .command('config')
-  .description('Manage stored configuration')
+const config = program.command('config').description('Manage stored configuration')
 
 config
   .command('set-token')
@@ -188,10 +189,9 @@ export function resolveTokenFromOpts(opts: { token?: string }): string {
 }
 
 // Only parse when run directly (not imported by tests)
-const isDirectRun = process.argv[1] && (
-  process.argv[1].endsWith('/index.js') ||
-  process.argv[1].endsWith('/cloudflare-mcp-cli')
-)
+const isDirectRun =
+  process.argv[1] &&
+  (process.argv[1].endsWith('/index.js') || process.argv[1].endsWith('/cloudflare-mcp-cli'))
 if (isDirectRun) {
   program.parse()
 }

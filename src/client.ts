@@ -9,17 +9,17 @@ const pkg = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), 'u
 
 const MCP_URL = 'https://mcp.cloudflare.com/mcp'
 
-export function createClient(apiToken: string): { client: Client; transport: StreamableHTTPClientTransport } {
-  const transport = new StreamableHTTPClientTransport(
-    new URL(MCP_URL),
-    {
-      requestInit: {
-        headers: {
-          Authorization: `Bearer ${apiToken}`,
-        },
+export function createClient(apiToken: string): {
+  client: Client
+  transport: StreamableHTTPClientTransport
+} {
+  const transport = new StreamableHTTPClientTransport(new URL(MCP_URL), {
+    requestInit: {
+      headers: {
+        Authorization: `Bearer ${apiToken}`,
       },
-    }
-  )
+    },
+  })
 
   const client = new Client({
     name: pkg.name,
@@ -32,7 +32,7 @@ export function createClient(apiToken: string): { client: Client; transport: Str
 export async function callTool(
   client: Client,
   toolName: string,
-  args: Record<string, string>
+  args: Record<string, string>,
 ): Promise<string> {
   const result = await client.callTool({ name: toolName, arguments: args })
 

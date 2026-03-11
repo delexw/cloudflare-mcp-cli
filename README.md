@@ -62,6 +62,7 @@ cloudflare-mcp execute -a <account-id> 'async () => cloudflare.request({
 ```
 
 **Available in code:**
+
 - `cloudflare.request(options)` — make API calls
 - `accountId` — the resolved account ID
 
