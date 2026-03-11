@@ -26,7 +26,7 @@ export function createClient(apiToken: string): { client: Client; transport: Str
 export async function callTool(
   client: Client,
   toolName: string,
-  args: Record<string, unknown>
+  args: Record<string, string>
 ): Promise<string> {
   const result = await client.callTool({ name: toolName, arguments: args })
 

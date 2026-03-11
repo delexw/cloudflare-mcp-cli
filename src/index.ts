@@ -79,7 +79,7 @@ program
     const { client, transport } = createClient(token)
     try {
       await client.connect(transport)
-      const args: Record<string, unknown> = { code }
+      const args: Record<string, string> = { code }
       if (opts.accountId) {
         args.account_id = opts.accountId
       }

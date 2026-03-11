@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { program } from './index.js'
 
 describe('CLI program', () => {
@@ -56,9 +56,7 @@ describe('CLI program', () => {
 describe('agent command', () => {
   it('prints the agent usage guide', () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-    const agentCmd = program.commands.find((c) => c.name() === 'agent')
 
-    // Simulate running the action
     program.parse(['node', 'cloudflare-mcp-cli', 'agent'])
 
     expect(consoleSpy).toHaveBeenCalled()
