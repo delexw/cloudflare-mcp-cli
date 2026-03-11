@@ -81,4 +81,4 @@ cloudflare-mcp execute -a <account-id> 'async () => cloudflare.request({
 
 ## License
 
-MIT
+Apache-2.0
