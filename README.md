@@ -31,7 +31,7 @@ You can also pass a token per-command with `--token` or the `CLOUDFLARE_API_TOKE
 Search the Cloudflare OpenAPI spec (all `$ref`s pre-resolved inline).
 
 ```bash
-cloudflare-mcp search 'async () => {
+cloudflare-mcp-cli search 'async () => {
   const results = [];
   for (const [path, methods] of Object.entries(spec.paths)) {
     for (const [method, op] of Object.entries(methods)) {
@@ -52,10 +52,10 @@ Execute JavaScript code against the Cloudflare API.
 
 ```bash
 # List zones
-cloudflare-mcp execute 'async () => cloudflare.request({ method: "GET", path: "/zones" })'
+cloudflare-mcp-cli execute 'async () => cloudflare.request({ method: "GET", path: "/zones" })'
 
 # With account ID (required for multi-account tokens)
-cloudflare-mcp execute -a <account-id> 'async () => cloudflare.request({
+cloudflare-mcp-cli execute -a <account-id> 'async () => cloudflare.request({
   method: "GET",
   path: `/accounts/${accountId}/workers/scripts`
 })'
